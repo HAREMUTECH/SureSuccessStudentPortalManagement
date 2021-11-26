@@ -237,7 +237,7 @@ namespace SureSuccessStudentPortal.Web.Controllers
                         //Storing the response details recieved from web api
                         var response = Res.Content.ReadAsStringAsync().Result;
                     }
-                    return View("Index");
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
