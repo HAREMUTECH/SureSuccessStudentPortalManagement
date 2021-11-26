@@ -31,21 +31,18 @@ namespace SureSuccessStudentPortal.Web.Controllers
                 using (var client = new HttpClient())
                 {
                     //Passing service base url
-                    //client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.GetAsync(Constant.List);
                     //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
                         var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
                         EmpInfo = JsonConvert.DeserializeObject<List<StudentRegistrationFormDto>>(EmpResponse);
                     }
-                    //returning the employee list to view
+
                     return View(EmpInfo);
                 }
             }
@@ -69,21 +66,19 @@ namespace SureSuccessStudentPortal.Web.Controllers
                 using (var client = new HttpClient())
                 {
                     //Passing service base url
-                    //client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.GetAsync(Constant.GetById + "/" + Id);
                     //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
-                        var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
-                        studentInfo = JsonConvert.DeserializeObject<StudentRegistrationFormDto>(EmpResponse);
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        //Deserializing the response recieved from web api
+                        studentInfo = JsonConvert.DeserializeObject<StudentRegistrationFormDto>(response);
                     }
-                    //returning the employee list to view
+
                     return View(studentInfo);
                 }
             }
@@ -121,21 +116,17 @@ namespace SureSuccessStudentPortal.Web.Controllers
                 using (var client = new HttpClient())
                 {
                     //Passing service base url
-                    //client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.PostAsJsonAsync(Constant.Create, studentInfo);
-                    //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
-                        var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
-                        Id = JsonConvert.DeserializeObject<Guid>(EmpResponse);
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        Id = JsonConvert.DeserializeObject<Guid>(response);
                     }
-                    //returning the employee list to view
+
                     return RedirectToAction("GetDetails", new { id = Id });
                 }
             }
@@ -156,21 +147,18 @@ namespace SureSuccessStudentPortal.Web.Controllers
                 using (var client = new HttpClient())
                 {
                     //Passing service base url
-                    //client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.GetAsync(Constant.GetById + "/" + id);
-                    //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
-                        var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
-                        studentInfo = JsonConvert.DeserializeObject<UpdateStudentRegistrationFormDto>(EmpResponse);
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        //Deserializing the response recieved from web api
+                        studentInfo = JsonConvert.DeserializeObject<UpdateStudentRegistrationFormDto>(response);
                     }
-                    //returning the employee list to view
+
                     return View(studentInfo);
 
                 }
@@ -205,21 +193,18 @@ namespace SureSuccessStudentPortal.Web.Controllers
                 using (var client = new HttpClient())
                 {
                     //Passing service base url
-                    //client.BaseAddress = new Uri(Baseurl);
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.PostAsJsonAsync(Constant.Update + "/" + id, studentInfo);
-                    //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
-                        var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
-                        Id = JsonConvert.DeserializeObject<Guid>(EmpResponse);
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        //Deserializing the response recieved from web api
+                        Id = JsonConvert.DeserializeObject<Guid>(response);
                     }
-                    //returning the employee list to view
+
                     return RedirectToAction("GetDetails", new { id = Id });
                 }
             }
@@ -245,18 +230,14 @@ namespace SureSuccessStudentPortal.Web.Controllers
                     client.DefaultRequestHeaders.Clear();
                     //Define request data format
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                     HttpResponseMessage Res = await client.DeleteAsync(Constant.Delete + "/" + id);
                     //Checking the response is successful or not which is sent using HttpClient
                     if (Res.IsSuccessStatusCode)
                     {
                         //Storing the response details recieved from web api
-                        var EmpResponse = Res.Content.ReadAsStringAsync().Result;
-                        //Deserializing the response recieved from web api and storing into the Employee list
-                        //message = JsonConvert.DeserializeObject<string>(EmpResponse);
+                        var response = Res.Content.ReadAsStringAsync().Result;
                     }
-                    //returning the employee list to view
-                    return View("Post");
+                    return View("Index");
                 }
             }
             catch (Exception ex)
