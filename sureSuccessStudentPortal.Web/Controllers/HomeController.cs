@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SureSuccessStudentPortal.Web.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SureSuccessStudentPortal.Web.Controllers
 {
@@ -33,6 +34,19 @@ namespace SureSuccessStudentPortal.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginDto loginDto)
+        {
+            if (loginDto.Password == Constant.Password && loginDto.Email == Constant.Email)
+            {
+                return RedirectToAction("Index", "StudentRegistration");
+            }
+            else
+            {
+                return View("login");
+            }
         }
     }
 }

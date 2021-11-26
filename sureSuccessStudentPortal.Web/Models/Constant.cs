@@ -7,7 +7,7 @@
         public const string Update = "https://localhost:44303/api/Update";
         public const string Delete = "https://localhost:44335/api/Delete";
         public const string List = "https://localhost:44346/api/Read";
-        public const string Password = "2021";
-        public const string Email = "2021";
+        public const string Email = "admin@gmail.com";
+        public const string Password = "admin";
     }
 }
